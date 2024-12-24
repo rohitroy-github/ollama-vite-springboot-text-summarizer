@@ -1,14 +1,13 @@
-import './App.css'
+import "./App.css";
+import MainPage from "./pages/MainPage";
+
 
 function App() {
-
   return (
-    <>
-     <div className='font-montserrat text-sm'>
-      <h3>Rohit</h3>
-     </div>
-    </>
-  )
+    <div>
+      <MainPage />
+    </div>
+  );
 }
 
-export default App
+export default App;
