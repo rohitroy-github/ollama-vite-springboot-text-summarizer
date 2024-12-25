@@ -11,18 +11,17 @@ const FormComponent = ({ onSubmit, summary, loading }) => {
   useEffect(() => {
     if (loading && summary) {
       const interval = setInterval(() => {
-        setTypedSummary((prev) => prev + summary[index]); // Add one character at a time
-        setIndex((prevIndex) => prevIndex + 1); // Move to the next character
+        setTypedSummary((prev) => prev + summary[index]);
+        setIndex((prevIndex) => prevIndex + 1);
       }, typingSpeed);
 
-      // Clear interval once all characters are typed
       if (index === summary.length) {
         clearInterval(interval);
       }
 
-      return () => clearInterval(interval); // Cleanup on unmount or when loading changes
+      return () => clearInterval(interval); 
     }
-  }, [loading, index, summary]); // Re-run effect when loading, index, or summary changes
+  }, [loading, index, summary]); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +38,7 @@ const FormComponent = ({ onSubmit, summary, loading }) => {
     onSubmit({ text, length });
     setText("");
     setLength("");
-    setTypedSummary(""); // Reset the typed summary before starting a new one
+    setTypedSummary("");
     setIndex(0);
   };
 
