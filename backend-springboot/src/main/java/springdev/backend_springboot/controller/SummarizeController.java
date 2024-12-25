@@ -26,10 +26,8 @@ public class SummarizeController {
 
         logger.info(":> input_text : {}", text);
 
-        // Call service to summarize text
         String summary = summarizeService.summarizeText(text, length);
 
-        // Return the summary response
         return new SummaryResponse(summary);
     }
 }

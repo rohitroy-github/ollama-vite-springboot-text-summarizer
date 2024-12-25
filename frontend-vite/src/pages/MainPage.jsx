@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import FormComponent from "../componnets/FormComponent";
 
 const MainPage = () => {
+  const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleFormSubmit = (data) => {
     setLoading(true);
+    setSummary("Generating summary...");
+
     fetch("/api/summarize", {
       method: "POST",
       headers: {
@@ -21,20 +24,19 @@ const MainPage = () => {
       })
       .then((result) => {
         setLoading(false);
-        console.log("Summary:", result.summary);
-        alert("Generated Summary: " + result.summary);
+        setSummary(result.summary);
       })
       .catch((error) => {
         setLoading(false);
-        alert(`Error: ${error.message}`); 
-        console.error("Error:", error);
+        setSummary(`Error: ${error.message}`);
       });
   };
 
   return (
-    <div className="min-h-screen w-full bg-gray-50 flex flex-col items-center justify-center font-montserrat">
-      {loading && <p className="text-blue-500">Generating summary...</p>}
-      <FormComponent onSubmit={handleFormSubmit} />
+    <div className="min-h-screen flex justify-center items-center bg-gray-50 font-montserrat">
+      <div className="w-2/3 bg-white shadow-lg rounded-lg p-6">
+        <FormComponent onSubmit={handleFormSubmit} summary={summary} loading={loading} />
+      </div>
     </div>
   );
 };
