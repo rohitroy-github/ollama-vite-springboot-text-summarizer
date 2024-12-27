@@ -35,7 +35,11 @@ const MainPage = () => {
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-50 font-montserrat">
       <div className="w-2/3 h-1/2 bg-white shadow-lg rounded-lg p-6">
-        <FormComponent onSubmit={handleFormSubmit} summary={summary} loading={loading} />
+        <FormComponent
+          onSubmit={handleFormSubmit}
+          summary={summary}
+          loading={loading}
+        />
       </div>
     </div>
   );

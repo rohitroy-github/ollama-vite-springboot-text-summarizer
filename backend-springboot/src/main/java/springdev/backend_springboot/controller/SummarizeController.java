@@ -23,11 +23,12 @@ public class SummarizeController {
     public SummaryResponse summarizeText(@RequestBody SummarizeRequest summarizeRequest) {
         String text = summarizeRequest.getText();
         int length = summarizeRequest.getLength();
+        String type = summarizeRequest.getType();
 
-        logger.info(":> input_text : {}", text);
+        logger.info(":> input_text : {}, type : {}", text, type);
 
-        String summary = summarizeService.summarizeText(text, length);
-
+        String summary = summarizeService.summarizeText(text, length, type);
+        
         return new SummaryResponse(summary);
     }
 }

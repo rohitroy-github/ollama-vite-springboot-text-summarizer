@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 const FormComponent = ({ onSubmit, summary, loading }) => {
   const [text, setText] = useState("");
   const [length, setLength] = useState("");
-  const [typedSummary, setTypedSummary] = useState(""); // State for typed summary
-  const [index, setIndex] = useState(0); // Current index of the summary to display
-  const typingSpeed = 100; // Speed in milliseconds for each character
+  const [typedSummary, setTypedSummary] = useState("");
+  const [index, setIndex] = useState(0);
+  const [summaryType, setSummaryType] = useState("Abstract"); // Toggle state
+  const typingSpeed = 100;
 
   // Effect to handle the typewriter effect
   useEffect(() => {
@@ -19,9 +20,9 @@ const FormComponent = ({ onSubmit, summary, loading }) => {
         clearInterval(interval);
       }
 
-      return () => clearInterval(interval); 
+      return () => clearInterval(interval);
     }
-  }, [loading, index, summary]); 
+  }, [loading, index, summary]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,11 +36,15 @@ const FormComponent = ({ onSubmit, summary, loading }) => {
       return;
     }
 
-    onSubmit({ text, length });
+    onSubmit({ text, length, type: summaryType });
     setText("");
     setLength("");
     setTypedSummary("");
     setIndex(0);
+  };
+
+  const toggleSummaryType = () => {
+    setSummaryType((prev) => (prev === "Abstract" ? "Extractive" : "Abstract"));
   };
 
   return (
@@ -67,6 +72,15 @@ const FormComponent = ({ onSubmit, summary, loading }) => {
             placeholder="Length of summary (in characters)"
           />
 
+          {/* Toggle Button */}
+          <button
+            type="button"
+            onClick={toggleSummaryType}
+            className="mt-4 bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md"
+          >
+            Switch to {summaryType === "Abstract" ? "Extractive" : "Abstract"} Mode
+          </button>
+
           <button
             type="submit"
             className="mt-4 bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-md"
@@ -82,9 +96,9 @@ const FormComponent = ({ onSubmit, summary, loading }) => {
           {loading ? (
             <p className="text-gray-500">{typedSummary}</p>
           ) : summary ? (
-            <p>{summary}</p> 
+            <p>{summary}</p>
           ) : (
-            <p className="text-gray-400">Generate your summary</p> 
+            <p className="text-gray-400">Generate your summary</p>
           )}
         </div>
       </div>
