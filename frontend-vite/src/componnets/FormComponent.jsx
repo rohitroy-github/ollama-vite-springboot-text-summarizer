@@ -5,10 +5,10 @@ const FormComponent = ({ onSubmit, summary, loading }) => {
   const [length, setLength] = useState("");
   const [typedSummary, setTypedSummary] = useState("");
   const [index, setIndex] = useState(0);
-  const [summaryType, setSummaryType] = useState("Abstract"); // Toggle state
+  const [summaryType, setSummaryType] = useState("Abstract");
   const typingSpeed = 100;
 
-  // Effect to handle the typewriter effect
+  // typewriter effect
   useEffect(() => {
     if (loading && summary) {
       const interval = setInterval(() => {
